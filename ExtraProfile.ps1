@@ -1,4 +1,14 @@
-$ExtraProfileCurrentVersion=1.2 
+$ExtraProfileCurrentVersion = '$ExtraProfileCurrentVersion = "v1.0"'
+$CheckExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' | Select-Object -Expand Content
+$ExtraProfileLiveVersion = $CheckExtraProfileLiveVersion.Split([Environment]::NewLine) | Select -First 1
+Function UpdateExtraProfile {
+    if ($ExtraProfileCurrentVersion = $ExtraProfileLiveVersion) {
+        Write-Host "ExtraProfile is uptodate."
+    } else {
+        Invoke-RestMethod 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' -OutFile ($env:DOCUMENTS+ '\ExtraProfile.ps1')
+        Write-Host "ExtraProfile has been updated"
+    }
+}
 Function vencord {
  & dudo ($env:DOWNLOADS + '\VencordInstallerCli.exe') --install
 }
