@@ -1,3 +1,4 @@
+$ExtraProfileCurrentVersion=1.2 
 Function vencord {
  & dudo ($env:DOWNLOADS + '\VencordInstallerCli.exe') --install
 }
