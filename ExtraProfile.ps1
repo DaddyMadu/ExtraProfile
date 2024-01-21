@@ -1,4 +1,4 @@
-$ExtraProfileCurrentVersion = "v1.0"
+$ExtraProfileCurrentVersion = "v1.1"
 $CheckExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' | Select-Object -Expand Content
 $ExtraProfileLiveVersion = $CheckExtraProfileLiveVersion.Split([Environment]::NewLine) | Select -First 1
 $UpdateExtraProfile = {
@@ -7,6 +7,7 @@ $UpdateExtraProfile = {
     } else {
         Invoke-RestMethod 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' -OutFile ($env:DOCUMENTS+ '\ExtraProfile.ps1')
         Write-Host "ExtraProfile has been updated"
+        reset
     }
 }
    
