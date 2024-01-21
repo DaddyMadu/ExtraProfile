@@ -1,7 +1,7 @@
 $ExtraProfileCurrentVersion = '$ExtraProfileCurrentVersion = "v1.0"'
 $CheckExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' | Select-Object -Expand Content
 $ExtraProfileLiveVersion = $CheckExtraProfileLiveVersion.Split([Environment]::NewLine) | Select -First 1
-Function UpdateExtraProfile {
+$UpdateExtraProfile = {
     if ($ExtraProfileCurrentVersion = $ExtraProfileLiveVersion) {
         Write-Host "ExtraProfile is uptodate."
     } else {
@@ -9,6 +9,16 @@ Function UpdateExtraProfile {
         Write-Host "ExtraProfile has been updated"
     }
 }
+   
+   $InitializationScript = $executioncontext.invokecommand.NewScriptBlock("$UpdateExtraProfile")
+   
+   $JobSplat = @{
+       Name = "Check for EP update"
+       InitializationScript = $InitializationScript
+   }
+   
+   Start-Job @JobSplat -ScriptBlock
+   
 Function vencord {
  & dudo ($env:DOWNLOADS + '\VencordInstallerCli.exe') --install
 }
