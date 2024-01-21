@@ -1,13 +1,13 @@
-$ExtraProfileCurrentVersion = 'v1.3'
-$CheckExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' | Select-Object -Expand Content
-$ExtraProfileLiveVersion = $CheckExtraProfileLiveVersion.Split([Environment]::NewLine) | Select -First 1
 $UpdateExtraProfile = {
-    if ($ExtraProfileLiveVersion = ('$ExtraProfileCurrentVersion = ' + "'$ExtraProfileCurrentVersion'")) {
-        Write-Host "ExtraProfile is uptodate."
+    $ExtraProfileCurrentVersion = 'v1.4'
+    $CheckExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' | Select-Object -Expand Content
+    $ExtraProfileLiveVersion = $CheckExtraProfileLiveVersion.Split([Environment]::NewLine) | Select -Skip 1 | Select -First 1
+    if ($ExtraProfileLiveVersion -eq ('$ExtraProfileCurrentVersion = ' + "'$ExtraProfileCurrentVersion'")) {
+        Write-Host "ExtraProfile is uptodate $ExtraProfileCurrentVersion"
+
     } else {
         Invoke-RestMethod 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' -OutFile ($env:DOCUMENTS+ '\ExtraProfile.ps1')
-        Write-Host "ExtraProfile has been updated"
-        reset
+        Write-Host "ExtraProfile has been updated, please reset your session."
     }
 }
    $InitializationScript = $executioncontext.invokecommand.NewScriptBlock("$UpdateExtraProfile")
