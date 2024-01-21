@@ -17,7 +17,9 @@ $UpdateExtraProfile = {
        InitializationScript = $InitializationScript
    }
    
-   Start-Job @JobSplat -ScriptBlock
+   Start-Job @JobSplat -ScriptBlock {
+    Param($Value)
+    } | Out-Null
    
 Function vencord {
  & dudo ($env:DOWNLOADS + '\VencordInstallerCli.exe') --install
