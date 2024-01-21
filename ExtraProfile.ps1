@@ -1,5 +1,5 @@
 $UpdateExtraProfile = {
-    $ExtraProfileCurrentVersion = 'v1.4'
+$ExtraProfileCurrentVersion = 'v1.5'
     $CheckExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' | Select-Object -Expand Content
     $ExtraProfileLiveVersion = $CheckExtraProfileLiveVersion.Split([Environment]::NewLine) | Select -Skip 1 | Select -First 1
     if ($ExtraProfileLiveVersion -eq ('$ExtraProfileCurrentVersion = ' + "'$ExtraProfileCurrentVersion'")) {
