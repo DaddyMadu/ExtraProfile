@@ -1,4 +1,4 @@
-$ExtraProfileCurrentVersion = "v1.1"
+$ExtraProfileCurrentVersion = "v1.2"
 $CheckExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' | Select-Object -Expand Content
 $ExtraProfileLiveVersion = $CheckExtraProfileLiveVersion.Split([Environment]::NewLine) | Select -First 1
 $UpdateExtraProfile = {
@@ -10,14 +10,11 @@ $UpdateExtraProfile = {
         reset
     }
 }
-   
    $InitializationScript = $executioncontext.invokecommand.NewScriptBlock("$UpdateExtraProfile")
-   
    $JobSplat = @{
        Name = "Check for EP update"
        InitializationScript = $InitializationScript
    }
-   
    Start-Job @JobSplat -ScriptBlock {
     Param($Value)
     } | Out-Null
