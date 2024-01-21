@@ -1,5 +1,5 @@
 $UpdateExtraProfile = {
-$ExtraProfileCurrentVersion = 'v1.5'
+$ExtraProfileCurrentVersion = 'v1.6'
     $CheckExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' | Select-Object -Expand Content
     $ExtraProfileLiveVersion = $CheckExtraProfileLiveVersion.Split([Environment]::NewLine) | Select -Skip 1 | Select -First 1
     if ($ExtraProfileLiveVersion -eq ('$ExtraProfileCurrentVersion = ' + "'$ExtraProfileCurrentVersion'")) {
@@ -236,6 +236,7 @@ Function NetworkOptimizations {
        netsh int tcp set supplemental internet congestionprovider=ctcp | Out-Null
        netsh int tcp set global rss=enabled | Out-Null
        netsh int ip set global taskoffload=enabled | Out-Null
+       netsh int tcp set global autotuninglevel=disabled | Out-Null
        Set-NetOffloadGlobalSetting -ReceiveSegmentCoalescing disabled | Out-Null
        Set-NetOffloadGlobalSetting -ReceiveSideScaling enabled | Out-Null
        Disable-NetAdapterLso -Name * | Out-Null
