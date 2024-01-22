@@ -1,7 +1,7 @@
 $UpdateExtraProfile = {
-$ExtraProfileCurrentVersion = 'v1.7'
+$ExtraProfileCurrentVersion = 'v1.8'
     $CheckExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' | Select-Object -Expand Content
-    $ExtraProfileLiveVersion = $CheckExtraProfileLiveVersion.Split([Environment]::NewLine) | Select -Skip 1 | Select -First 1
+    $ExtraProfileLiveVersion = $CheckExtraProfileLiveVersion.Split([Environment]::NewLine) | Select-Object -Skip 1 | Select-Object -First 1
     if ($ExtraProfileLiveVersion -eq ('$ExtraProfileCurrentVersion = ' + "'$ExtraProfileCurrentVersion'")) {
         Write-Host "ExtraProfile is uptodate $ExtraProfileCurrentVersion"
 
@@ -22,7 +22,7 @@ $ExtraProfileCurrentVersion = 'v1.7'
     Function vencord {
         Invoke-RestMethod 'https://github.com/Vencord/Installer/releases/latest/download/VencordInstallerCli.exe' -OutFile ($env:DOWNLOADS + '\VencordInstallerCli.exe')
         & dudo ($env:DOWNLOADS + '\VencordInstallerCli.exe') --install
-        rm -rf ($env:DOWNLOADS + '\VencordInstallerCli.exe') 
+        Remove-Item ($env:DOWNLOADS + '\VencordInstallerCli.exe') -force
     }
 # VPN VOIP
 Function vpnv {
