@@ -4,7 +4,7 @@ $UpdateExtraProfile = {
     if ($ExtraProfileLiveVersion -eq $ExtraProfileCurrentVersion) {
         Write-Host "ExtraProfile $ExtraProfileCurrentVersion"
     } else {
-        Write-Host "ExtraProfile $ExtraProfileLiveVersion update avalible, current is $ExtraProfileCurrentVersion use update-extrap to update"
+        Write-Host "ExtraProfile $ExtraProfileLiveVersion update available, current is $ExtraProfileCurrentVersion use update-extrap to update"
     }
 }
    $InitializationScript = $executioncontext.invokecommand.NewScriptBlock("$UpdateExtraProfile")
