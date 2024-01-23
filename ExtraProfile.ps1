@@ -22,7 +22,7 @@ $UpdateExtraProfile = {
         $ExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/version' | Select-Object -Expand Content
         New-Item -Path "HKCU:\SOFTWARE\BlissConsoles" >$null -ErrorAction SilentlyContinue | Out-Null
         Set-ItemProperty -Path "HKCU:\SOFTWARE\BlissConsoles" -Name "epversion" -Type String -Value "$ExtraProfileLiveVersion" -force >$null
-        Write-Host "update completed please reload your `$profile"
+        Write-Host "update completed, please reload your `$profile"
     }
     Function vencord {
         Invoke-RestMethod 'https://github.com/Vencord/Installer/releases/latest/download/VencordInstallerCli.exe' -OutFile ($env:DOWNLOADS + '\VencordInstallerCli.exe')
