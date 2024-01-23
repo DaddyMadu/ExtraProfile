@@ -1,13 +1,10 @@
 $UpdateExtraProfile = {
-$ExtraProfileCurrentVersion = 'v1.9'
-    $CheckExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' | Select-Object -Expand Content
-    $ExtraProfileLiveVersion = $CheckExtraProfileLiveVersion -split '\r?\n' | Select-Object -Skip 1 | Select-Object -First 1
-    if ($ExtraProfileLiveVersion -eq ('$ExtraProfileCurrentVersion = ' + "'$ExtraProfileCurrentVersion'")) {
-        Write-Host "ExtraProfile is uptodate $ExtraProfileCurrentVersion"
-
+$ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").version
+    $ExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/version' | Select-Object -Expand Content
+    if ($ExtraProfileLiveVersion -eq $ExtraProfileCurrentVersion) {
+        Write-Host "ExtraProfile $ExtraProfileCurrentVersion is uptodate"
     } else {
-        Invoke-RestMethod 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' -OutFile ($env:DOCUMENTS+ '\ExtraProfile.ps1')
-        Write-Host "ExtraProfile has been updated, please reset your session."
+        Write-Host "ExtraProfile $ExtraProfileLiveVersion update avalible, current is $ExtraProfileCurrentVersion use update-extrap to update"
     }
 }
    $InitializationScript = $executioncontext.invokecommand.NewScriptBlock("$UpdateExtraProfile")
@@ -19,6 +16,11 @@ $ExtraProfileCurrentVersion = 'v1.9'
     Param($Value)
     } | Out-Null
    
+    Function update-extrap {
+        Write-Host "updating your `$extraprofile , please hold on for a second...."
+        Invoke-RestMethod 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' -OutFile ($env:DOCUMENTS+ '\ExtraProfile.ps1')
+        Write-Host "update completed please reload your `$profile"
+    }
     Function vencord {
         Invoke-RestMethod 'https://github.com/Vencord/Installer/releases/latest/download/VencordInstallerCli.exe' -OutFile ($env:DOWNLOADS + '\VencordInstallerCli.exe')
         & dudo ($env:DOWNLOADS + '\VencordInstallerCli.exe') --install
