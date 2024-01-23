@@ -1,5 +1,5 @@
 $UpdateExtraProfile = {
-$ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").version
+    $ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").epversion
     $ExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/version' | Select-Object -Expand Content
     if ($ExtraProfileLiveVersion -eq $ExtraProfileCurrentVersion) {
         Write-Host "ExtraProfile $ExtraProfileCurrentVersion is uptodate"
@@ -19,6 +19,9 @@ $ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").
     Function update-extrap {
         Write-Host "updating your `$extraprofile , please hold on for a second...."
         Invoke-RestMethod 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' -OutFile ($env:DOCUMENTS+ '\ExtraProfile.ps1')
+        $ExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/version' | Select-Object -Expand Content
+        New-Item -Path "HKCU:\SOFTWARE\BlissConsoles" >$null -ErrorAction SilentlyContinue | Out-Null
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\BlissConsoles" -Name "epversion" -Type String -Value "$ExtraProfileLiveVersion" -force >$null
         Write-Host "update completed please reload your `$profile"
     }
     Function vencord {
