@@ -59,7 +59,7 @@ Function vpnv {
         }
 # scp -P 21098 cpuser@server266.web-hosting.com:/home/cpuser/public_html/error_log C:\Users\Windows_user\Desktop
 Function fromserver {
-    scp -P 69 root@madu.gg:$args
+    scp -P 69 root@madu.gg:$($args[0]) $($args[1])
 }
 # scp -P 21098 C:\Users\Windows_user\Desktop\image.jpg cpuser@server266.web-hosting.com:/home/cpuser/public_html
 Function toserver {
