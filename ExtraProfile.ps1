@@ -14,7 +14,7 @@ $UpdateExtraProfile = {
    }
    Start-Job @JobSplat -ScriptBlock {
     Param($Value)
-    } | Out-Null
+    } | Out-Null | Receive-Job -Wait -AutoRemove
    
     Function update-extrap {
         Write-Host "updating your `$extraprofile , please hold on for a second...."
