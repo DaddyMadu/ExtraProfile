@@ -9,12 +9,12 @@ $UpdateExtraProfile = {
 }
    $InitializationScript = $executioncontext.invokecommand.NewScriptBlock("$UpdateExtraProfile")
    $JobSplat = @{
-       Name = "Check for EP update"
+       Name = "CheckFEPUpdate"
        InitializationScript = $InitializationScript
    }
    Start-Job @JobSplat -ScriptBlock {
     Param($Value)
-    } | Out-Null | Receive-Job -Wait -AutoRemove
+    } | Out-Null
    
     Function update-extrap {
         Write-Host "updating your `$extraprofile , please hold on for a second...."
