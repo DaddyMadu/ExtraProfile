@@ -1,8 +1,9 @@
+$ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").epversion
+Write-Host "ExtraProfile $ExtraProfileCurrentVersion"
 $UpdateExtraProfile = {
     $ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").epversion
     $ExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/version' | Select-Object -Expand Content
     if ($ExtraProfileLiveVersion -eq $ExtraProfileCurrentVersion) {
-        Write-Host "ExtraProfile $ExtraProfileCurrentVersion"
     } else {
         Write-Host "ExtraProfile $ExtraProfileLiveVersion update available, current is $ExtraProfileCurrentVersion use update-extrap to update"
     }
