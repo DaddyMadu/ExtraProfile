@@ -1,4 +1,4 @@
-$UpdateExtraProfile = 
+$UpdateExtraProfile = {
 If (Test-Connection www.google.com -Count 1 -Quiet) {
     $ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").epversion
     $ExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/version' | Select-Object -Expand Content
@@ -10,6 +10,7 @@ If (Test-Connection www.google.com -Count 1 -Quiet) {
 } else {
     $ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").epversion
     Write-Host "ExtraProfile $ExtraProfileCurrentVersion"
+    }
 }
    $InitializationScript = $executioncontext.invokecommand.NewScriptBlock("$UpdateExtraProfile")
    $JobSplat = @{
