@@ -1,5 +1,5 @@
 $UpdateExtraProfile = 
-If ((Test-Connection www.google.com -Count 1).PingSucceeded) {
+If (Test-Connection www.google.com -Count 1 -Quiet) {
     $ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").epversion
     $ExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/version' | Select-Object -Expand Content
     if ($ExtraProfileLiveVersion -eq $ExtraProfileCurrentVersion) {
