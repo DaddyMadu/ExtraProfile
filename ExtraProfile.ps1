@@ -1,6 +1,6 @@
 $UpdateExtraProfile = {
-If (Test-Connection www.google.com -Count 1 -Quiet) {
     $ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").epversion
+If (Test-Connection www.google.com -Count 1 -Quiet) {
     $ExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/version' | Select-Object -Expand Content
     if ($ExtraProfileLiveVersion -eq $ExtraProfileCurrentVersion) {
         Write-Host "ExtraProfile $ExtraProfileCurrentVersion"
@@ -8,7 +8,6 @@ If (Test-Connection www.google.com -Count 1 -Quiet) {
         Write-Host "ExtraProfile $ExtraProfileLiveVersion update available, current is $ExtraProfileCurrentVersion use update-extrap to update"
     }
 } else {
-    $ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").epversion
     Write-Host "ExtraProfile $ExtraProfileCurrentVersion"
     }
 }
