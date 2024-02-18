@@ -1,25 +1,3 @@
-$UpdateExtraProfile = {
-    $ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").epversion
-If (Test-Connection www.google.com -Count 1 -Quiet) {
-    $ExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/version' | Select-Object -Expand Content
-    if ($ExtraProfileLiveVersion -eq $ExtraProfileCurrentVersion) {
-        Write-Host "ExtraProfile $ExtraProfileCurrentVersion"
-    } else {
-        Write-Host "ExtraProfile $ExtraProfileLiveVersion update available, current is $ExtraProfileCurrentVersion use update-extrap to update"
-    }
-} else {
-    Write-Host "ExtraProfile $ExtraProfileCurrentVersion"
-    }
-}
-   $InitializationScript = $executioncontext.invokecommand.NewScriptBlock("$UpdateExtraProfile")
-   $JobSplat = @{
-       Name = "CheckFEPUpdate"
-       InitializationScript = $InitializationScript
-   }
-   Start-Job @JobSplat -ScriptBlock {
-    Param($Value)
-    } | Out-Null
-   
     Function update-extrap {
         Write-Host "updating your `$extraprofile , please hold on for a second...."
         Invoke-RestMethod 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/ExtraProfile.ps1' -OutFile ($env:DOCUMENTS+ '\ExtraProfile.ps1')
