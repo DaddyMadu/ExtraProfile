@@ -3,12 +3,10 @@ $UpdateExtraProfile = {
 If (Test-Connection www.google.com -Count 1 -Quiet) {
     $ExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/version' | Select-Object -Expand Content
     if ($ExtraProfileLiveVersion -eq $ExtraProfileCurrentVersion) {
-        $Host.UI.RawUI.WindowTitle += " [EP $ExtraProfileCurrentVersion]"
     } else {
         Write-Host "ExtraProfile $ExtraProfileLiveVersion update available, current is $ExtraProfileCurrentVersion use update-extrap to update"
     }
 } else {
-    $Host.UI.RawUI.WindowTitle += " [EP $ExtraProfileCurrentVersion]"
     }
 }
    $InitializationScript = $executioncontext.invokecommand.NewScriptBlock("$UpdateExtraProfile")
