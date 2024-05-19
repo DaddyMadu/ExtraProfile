@@ -1,6 +1,6 @@
 $UpdateExtraProfile = {
     $ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").epversion
-If (Test-Connection www.google.com -Count 1 -Quiet) {
+If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") {
     $ExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/version' | Select-Object -Expand Content
     if ($ExtraProfileLiveVersion -eq $ExtraProfileCurrentVersion) {
     } else {
