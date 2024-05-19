@@ -1,12 +1,12 @@
 $UpdateExtraProfile = {
     $ExtraProfileCurrentVersion = (Get-ItemProperty "HKCU:\SOFTWARE\BlissConsoles").epversion
-If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") {
+If ((Get-NetConnectionProfile).IPv4Connectivity -contains "NoTraffic" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "NoTraffic") {
+} else {
     $ExtraProfileLiveVersion = Invoke-WebRequest -URI 'https://raw.githubusercontent.com/DaddyMadu/ExtraProfile/main/version' | Select-Object -Expand Content
     if ($ExtraProfileLiveVersion -eq $ExtraProfileCurrentVersion) {
     } else {
         Write-Host "ExtraProfile $ExtraProfileLiveVersion update available, current is $ExtraProfileCurrentVersion use update-extrap to update"
     }
-} else {
     }
 }
    $InitializationScript = $executioncontext.invokecommand.NewScriptBlock("$UpdateExtraProfile")
